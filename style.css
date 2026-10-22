@@ -1,0 +1,139 @@
+/* Page Background */
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, #ff4ecd 0%, transparent 35%),
+        radial-gradient(circle at 80% 25%, #4c7dff 0%, transparent 35%),
+        radial-gradient(circle at 50% 90%, #8b4dff 0%, transparent 40%),
+        #0b1020;
+}
+
+
+/* Main Calculator */
+.calculator {
+    width: 330px;
+    padding: 25px;
+
+    background: #15182b;
+    border: 1px solid #444b78;
+    border-radius: 22px;
+
+    box-shadow:
+        0 0 25px rgba(91, 77, 255, 0.4),
+        0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Calculator Display */
+#display {
+    width: 100%;
+    height: 75px;
+
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 12px;
+
+    border: 1px solid #353b63;
+    border-radius: 12px;
+
+    background: #090c18;
+    color: white;
+
+    font-size: 30px;
+    text-align: right;
+}
+
+
+/* Buttons Section */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 11px;
+}
+
+
+/* Common Button */
+button {
+    height: 60px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #242943;
+    color: white;
+
+    font-size: 19px;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* Button Hover */
+button:hover {
+    background: #343a5c;
+    transform: translateY(-2px);
+}
+
+
+/* Operator Buttons */
+.operator {
+    background: #5b4de8;
+}
+
+.operator:hover {
+    background: #7568ff;
+}
+
+
+/* Clear Button */
+.clear {
+    background: #e84783;
+}
+
+.clear:hover {
+    background: #ff5c98;
+}
+
+
+/* Delete Button */
+.delete {
+    background: #3b4160;
+}
+
+
+/* Equal Button */
+.equal {
+    background: #8b4dff;
+}
+
+.equal:hover {
+    background: #a56cff;
+}
+
+
+/* Button Click Effect */
+button:active {
+    transform: scale(0.95);
+}
+
+
+/* Mobile Screen */
+@media (max-width: 450px) {
+    .calculator {
+        width: 85%;
+        padding: 20px;
+    }
+
+    button {
+        height: 55px;
+    }
+}
