@@ -25,7 +25,7 @@ buttons.forEach(function(button) {
         else if (value === "=") {
             try {
                 let expression = currentValue
-                    .replace(/x/g, "*")
+                    .replace(/[Xx]/g, "*")
                     .replace(/÷/g, "/");
 
                 currentValue = String(eval(expression));
