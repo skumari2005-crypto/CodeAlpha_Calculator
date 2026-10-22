@@ -3,97 +3,66 @@ let buttons = document.querySelectorAll("button");
 
 let currentValue = "";
 
+function calculate() {
+    try {
+        let expression = currentValue
+            .replace(/[xX×✕✖]/g, "*")
+            .replace(/[÷/]/g, "/")
+            .replace(/[−–]/g, "-");
+
+        if (!expression || !/^[0-9+\-*/.()\s]+$/.test(expression)) {
+            throw new Error("Invalid expression");
+        }
+
+        let result = eval(expression);
+
+        if (!Number.isFinite(result)) {
+            throw new Error("Invalid result");
+        }
+
+        currentValue = String(result);
+        display.value = currentValue;
+    } catch {
+        display.value = "Error";
+        currentValue = "";
+    }
+}
+
 buttons.forEach(function(button) {
-
     button.addEventListener("click", function() {
+        let value = button.innerText.trim();
 
-        let value = button.innerText;
-
-        // Clear display
         if (value === "AC") {
             currentValue = "";
             display.value = "";
-        }
-
-        // Delete last character
-        else if (value === "DEL") {
+        } else if (value === "DEL") {
             currentValue = currentValue.slice(0, -1);
             display.value = currentValue;
-        }
-
-        // Calculate result
-        else if (value === "=") {
-            try {
-                let expression = currentValue
-                    .replace(/[Xx]/g, "*")
-                    .replace(/÷/g, "/");
-
-                currentValue = String(eval(expression));
-                display.value = currentValue;
-            }
-            catch {
-                display.value = "Error";
-                currentValue = "";
-            }
-        }
-
-        // Add value to display
-        else {
+        } else if (value === "=") {
+            calculate();
+        } else if (/^[0-9.+\-*/xX×✕✖÷−()]$/.test(value)) {
             currentValue += value;
             display.value = currentValue;
         }
-
     });
-
 });
+
 // Keyboard support
-
 document.addEventListener("keydown", function(event) {
-
-    if (event.key >= "0" && event.key <= "9") {
+    if (/^[0-9.+\-*/()]$/.test(event.key)) {
         currentValue += event.key;
         display.value = currentValue;
-    }
-
-    else if (event.key === "+") {
-        currentValue += "+";
-        display.value = currentValue;
-    }
-
-    else if (event.key === "-") {
-        currentValue += "-";
-        display.value = currentValue;
-    }
-
-    else if (event.key === "*") {
+    } else if (event.key === "x" || event.key === "X" || event.key === "×") {
         currentValue += "*";
         display.value = currentValue;
-    }
-
-    else if (event.key === "/") {
-        currentValue += "/";
-        display.value = currentValue;
-    }
-
-    else if (event.key === "Enter") {
-        try {
-            currentValue = String(eval(currentValue));
-            display.value = currentValue;
-        }
-        catch {
-            display.value = "Error";
-            currentValue = "";
-        }
-    }
-
-    else if (event.key === "Backspace") {
+    } else if (event.key === "Enter" || event.key === "=") {
+        event.preventDefault();
+        calculate();
+    } else if (event.key === "Backspace") {
         currentValue = currentValue.slice(0, -1);
         display.value = currentValue;
-    }
-
-    else if (event.key === "Escape") {
+    } else if (event.key === "Escape") {
         currentValue = "";
         display.value = "";
     }
-
 });
